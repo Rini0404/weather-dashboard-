@@ -7,16 +7,16 @@ console.log("ayo")
 dayjs.extend(window.dayjs_plugin_utc);
 dayjs.extend(window.dayjs_plugin_timezone);
 
-let searchForm 
+let searchForm  = $('#searchBtn');
+console.log(searchForm);
 let searchInput
 let todayBox
 let forecastBox
 let searchDisplayBox
 
-
-
-
-
+$('#searchForm').on('click', function(e){
+  e.preventDefault();
+}); 
 
 var weatherApi = ``; 
 
