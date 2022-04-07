@@ -1,0 +1,75 @@
+:root { 
+  background-color: offwhite; 
+}
+
+* { 
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+
+header { 
+  background-image: linear-gradient(to right, steelblue, purple); 
+  text-align:center;
+  padding: 5px; 
+}
+
+form { 
+  margin:11px;
+}
+
+.card { 
+  height:30%;
+  background: steelblue;
+  margin: 2px
+}
+
+.card-body { 
+  padding: 1px; 
+}
+
+.five-day-card {
+  
+  color: white;
+}
+
+.w-box { 
+
+  justify-content: flex-end;
+}
+
+.row {
+  padding-left: 10px;
+}
+
+.form-label { 
+  font-style: bold;
+  font-size:30px;
+}
+
+.title { 
+  font-weight: bold;
+  color:white; 
+  font-size: 40px;
+}
+
+ 
+.weather-box{
+  width: 100%;
+}
+
+.wC{
+  height: 160px;
+  background-color: #f4f9ff;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+
+#searchBtn{
+  margin-top: 10px;
+  width:12.5%;
+}
+
+#citySearch{ 
+  width:12.5%;
+}
+
