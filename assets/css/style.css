@@ -14,30 +14,31 @@ header {
 
 form { 
   margin:11px;
+  border:1px solid steelblue;
+  padding: 10px;
 }
 
 .card { 
   height:30%;
   background: steelblue;
-  margin: 2px
+  margin: 2px; 
+  height: 300px;
 }
 
 .card-body { 
   padding: 1px; 
 }
 
-.five-day-card {
-  
-  color: white;
-}
-
-.w-box { 
-
-  justify-content: flex-end;
+.card-deck { 
+  height:30%;
+  display:flex; 
+  justify-content: space-between;
 }
 
 .row {
   padding-left: 10px;
+  display:flex; 
+  justify-content: center;
 }
 
 .form-label { 
@@ -51,25 +52,31 @@ form {
   font-size: 40px;
 }
 
- 
-.weather-box{
-  width: 100%;
+.boxs { 
+  border:5px steelblue solid;
+  margin-top:3px;
 }
 
+
 .wC{
-  height: 160px;
-  background-color: #f4f9ff;
+  height: 190px;
+  border: 1px;
+  background-color: blanchedalmond;
   margin-top: 20px;
   padding: 10px;
 }
 
+#test { 
+  display:flex; 
+  justify-content: space-between;
+}
 
 #searchBtn{
-  margin-top: 10px;
-  width:12.5%;
+  margin-top: 30px;
+  width:100%;
 }
 
 #citySearch{ 
-  width:12.5%;
+  width:100%;
 }
 
