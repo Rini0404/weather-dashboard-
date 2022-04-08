@@ -15,11 +15,26 @@ console.log(searchHistory);
 let searchForm  = $('#searchBtn');
 const cCity = $('#cityName')
 // cCity is added to the url, so when typed out, we grab the name an add it to city
-var geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${cCity},{state code},{country code}&limit={limit}&appid=${apiKey}`
+var queryURL = `http://api.openweathermap.org/geo/1.0/direct?q=${cCity}&appid=${apiKey}`
 
 // lets grab the users input! aka, searched city 
 function getWeather (cCity) {
   
+  $.ajax({
+    url: queryUrl,
+    method: "GET", 
+  })
+  .then(function (response) {
+    console.log(response);
+    const currentDate = new Date(response.data.dt*1000) ; 
+    console.log(currentDate)
+    const day = currentDate.getDate(); 
+      const month = currentDate.getMonth() + 1; 
+        const year = currentDate.getFullYear(); 
+    cCity.innerHTML = response.data.name + `$('month') / $('day) / $('year')`
+    console.log(cCity)
+
+  })
 
 
 }
@@ -43,8 +58,8 @@ function getWeather (cCity) {
 //   console.log(weatherUrl); 
 // }
 // console.log("ayo")
-// dayjs.extend(window.dayjs_plugin_utc);
-// dayjs.extend(window.dayjs_plugin_timezone);
+dayjs.extend(window.dayjs_plugin_utc);
+dayjs.extend(window.dayjs_plugin_timezone);
 
 // console.log(searchForm);
 // let searchInput
