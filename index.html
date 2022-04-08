@@ -18,16 +18,17 @@
   <header>
     <h1 class = "title">Weather forecast</h1>
   </header>
-  <!--  an id to make it a flex box to put my form & box next to eachother -->
+  <!--  an id to make it a flex box to put my form & box next to ectotherm -->
 <div id = "test">
   <form>
     <div class="ayo">
       <label class="form-label"><strong>Search for a City:</strong></label>
       <input type="city" class="form-control" id="citySearch">
-      <div id="emailHelp" class="form-text">What City do you live in?</div>
+      <div class="form-text">What City do you live in?</div>
     </div>
       <button type="submit" class="btn btn-primary" id = "searchBtn">Search</button>
-      
+      <button type="clear" class="btn btn-primary" id = "clearBtn">Clear</button>
+      <form id="historyEl" ></form>
   </form>
 
 
@@ -42,10 +43,10 @@
         <img id = "iWeather"></img>
       <div class = "info"></div>
     </span>
-    <div class = "temp"></div>
-    <div class = "wind"></div>
-    <div class = "humidity"></div>
-    <div class = "UV-index"></div>
+    <div id = "temp" class = "temp"></div>
+    <div id = "wind" class = "wind"></div>
+    <div id = "humidity" class = "humidity"></div>
+    <div id = "uv" class = "UV-index"></div>
   </div>
   </div>
   </div>
