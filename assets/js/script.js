@@ -98,7 +98,7 @@ function toDisplayWeather(e){
   console.log(city)
   }
 }
-
+$("#searchBtn").on("click",toDisplayWeather);
 function look(s){
   for (var i = 0; i < searchCity.length; i++) {
     if (s.toUpperCase() === searchCity[i]){
@@ -134,8 +134,8 @@ function searchList(e){
     getWeather(city); 
   }
 }
-
-function loadlastCity(){
+$(document).on("click",searchList);
+function lastCity(){
   $("ul").empty();
   var searchCity = JSON.parse(localStorage.getItem("nameOfCity"));
   if(searchCity!==null){
@@ -147,3 +147,9 @@ function loadlastCity(){
       getWeather(city);
   }
 }
+
+
+
+$(window).on("load",lastCity);
+
+
