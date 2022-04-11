@@ -1,3 +1,4 @@
+
 // const = $('#') if i need to declare tings ye 
 // important stuffs ye 
 // cTemp = CURRENT shorthand tings ye
@@ -36,17 +37,38 @@ function getWeather (city, apiKey) {
         uvData(response.coord.lat, response.coord.lon);
         // add forecast func outside
         foreCast(response.id);
-        if (response.cod==200){
+        if (response.cod == 200){
           //stopped here
+          searchCity = json.parse(localStorage.getItem('nameOfCity')); 
+            console.log(searchCity);
+              if (searchCity == null) {
+                searchCity = []; 
+                searchCity.push(city.toUpperCase());
+                localStorage.setItem('nameOfCity', json.stringify(searchCity));
+                addToList(city); 
+              }else{
+                if (find(city)> 0 ){
+                  searchCity.push(city.toUpperCase());
+                  localStorage.setItem('nameOfCity', json.stringify(searchCity));
+                  addToList(city);
+                }
+              }
         }
     })
+}
+
+  function addToList(js){
+    var listA= $("<li>"+js.toUpperCase()+"</li>");
+    $(listA).attr("class","list-group-item");
+    $(listA).attr("data-value",js.toUpperCase());
+    $(".list-group").append(listA);
 }
 
 // var iconcode= response.list[((i+1)*8)-1].weather[0].icon;
 // var iconurl="https://openweathermap.org/img/wn/"+iconcode+".png";
 
 function foreCast (cityD){
-  var qForecastUrl = "api.openweathermap.org/data/2.5/forecast?lat="+ lat + "&lon=" + lon + "&appid=" + apiKey
+  var qForecastUrl = `api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`
   var over = false; 
     $.ajax ({
       url: qForecastUrl,
@@ -66,7 +88,6 @@ function foreCast (cityD){
     });
 
   }
-
 
 
 function toDisplayWeather(e){
@@ -89,7 +110,7 @@ function look(s){
 
   
   function UvData (lon, lat){
-    var uvUrl = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey
+    var uvUrl = `api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`
   //   var lat = position.coords.latitude;
   // var lon = position.coords.longitude;
 
@@ -99,122 +120,30 @@ function look(s){
       })
         .then(function (response){
         $(cUV).html(response.val); 
-  
       }); 
     }
 
+// show the past searched weather data
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// update localStorage function need json.Stringify search history
-
-// searchBtn.addEventListener("click",function() {
-//   const searchedCity = inputL.value;
-//   getWeather(searchedCity);
-//   sHistory.push(searchedCity);
-//   localStorage.setItem("search",JSON.stringify(sHistory));
-//   rendersHistory();
-// })
-
-
-
-
-
-// renHistory();
-// if (sHistory.length > 0) {
-//     getWeather(sHistory[sHistory.length - 1]);
-// }
-
-
-// function renHistory() {
-//   historyL.innerHTML = "";
-//   for (let i = 0; i< sHistory.length; i++) {
-//       const historyI = document.createElement("input");
-//       historyI.setAttribute("type","text");
-//       historyI.setAttribute("readonly",true);
-//       historyI.setAttribute("class", "form-control d-block bg-white");
-//       historyI.setAttribute("value", sHistory[i]);
-//       historyI.addEventListener("click",function() {
-//           getWeather(historyI.value);
-//       })
-//       historyL.append(historyI);
-//   }
+function searchList(e){
+  var listA = e.target;
   
-//   renHistory(); 
-//     if (sHistory.length > 0)
-//       getWeather(sHistory[sHistory.length - 1]); 
 
-// }
+  if (e.target.matches("li")){
+    city  = listA.textContent.trim();
+    getWeather(city); 
+  }
+}
 
-
-
-// // clearEl.addEventListener("click",function() {
-// //   searchHistory = [];
-// //   renderSearchHistory();
-// // })
-
-// // pull history from localStorage function  parse the .json
-
-
-
-// // function for 5 day for loops 
-
-
-// // for moment js
-// dayjs.extend(window.dayjs_plugin_utc);
-// dayjs.extend(window.dayjs_plugin_timezone);
-
-
-
-
-// // function weatherNow () {
-
-
-// //   var lat = position.coords.latitude;
-// //   var long = position.coords.longitude;
-
-// //   var weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apiKey}`;
-// //   console.log(weatherUrl); 
-// // }
-// // console.log("ayo")
-
-// // console.log(searchBtn);
-// // let searchInput
-// // let todayBox
-// // let forecastBox
-// // let searchDisplayBox
-
-// // $('#searchBtn').on('click', function(e){
-// //   e.preventDefault();
-// // }); 
-
-// // var lat = position.coords.latitude;
-// // var long = position.coords.longitude;
-
-// // var weatherApiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apiKey}`;
-// // function weatherDay (weatherApiUrl) {
-// //   fetch(weatherDay)
-  
-// //   .then(function (response) {
-// //     return response.json();
-// //   })
-// //   console.log(data)
-// // }
+function loadlastCity(){
+  $("ul").empty();
+  var searchCity = JSON.parse(localStorage.getItem("nameOfCity"));
+  if(searchCity!==null){
+      searchCity=JSON.parse(localStorage.getItem("nameOfCity"));
+      for(i = 0; i< searchCity.length;i++){
+          addToList(searchCity[i]);
+      }
+      city = searchCity[i-1];
+      getWeather(city);
+  }
+}
