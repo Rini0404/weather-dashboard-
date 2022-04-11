@@ -16,8 +16,8 @@ const cCity = $('#cityName')
 var weatherApiRoot = `http://api.openweathermap.org`; 
 const apiKey = "c742f6a434aba29ee3de171e2674ca24"; 
 // lets grab the users input! aka, searched city 
-function getWeather (city, apiKey) {
-  var queryUrl =  `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`;
+function getWeather (city) {
+  var queryUrl =  `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`
     $.ajax({
       url: queryUrl,
       method: 'GET',
