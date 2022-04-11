@@ -24,15 +24,50 @@ function getWeather (city, apiKey) {
     }) .then(function (response) {
       console.log(response)
       var cDate = new Date(response.dt*1000).toLocaleDateString();
-        $(cCity).html(response.name +"("+date+")");
+        $(cCity).html(response.name +"("+cDate+")");
         // how to convert temp to F^o
-        var fheight = (response.main.temp - 273.15) * 1.8 + 32; 
-        $(cTemp).html((fheight).toFixed(2)+'&#8457');
+        var fHeight = (response.main.temp - 273.15) * 1.8 + 32; 
+        $(cTemp).html((fHeight).toFixed(2)+'&#8457');
           // humidity
           var windS = response.wind.speed;
-          //  var for windspeed
+            var windData = (windS*2.37).toFixed(1); 
+              $(cWind).html(windData + "Mph"); 
+              // uv index, need to make new func
+        uvData(response.coord.lat, response.coord.lon);
+        // add forecast func outside
+        foreCast(response.id);
+        if (response.cod==200){
+          //stopped here
+        }
     })
 }
+
+// var iconcode= response.list[((i+1)*8)-1].weather[0].icon;
+// var iconurl="https://openweathermap.org/img/wn/"+iconcode+".png";
+
+function foreCast (cityD){
+  var qForecastUrl = "api.openweathermap.org/data/2.5/forecast?lat="+ lat + "&lon=" + lon + "&appid=" + apiKey
+  var over = false; 
+    $.ajax ({
+      url: qForecastUrl,
+      method: "GET", 
+
+    }).then(function (response){
+      for ( i = 0; i < 5 ; i++) { 
+        var cDate = new Date ((response.list =[((i + 1)*8 ) - 1 ] .dt)*1000).toLocaleDateString(); //stackOver
+        var humidity = response.list[((i + 1)*8 ) - 1].main.humidity;
+          var fHeight = (((tmpS-273.5)*1.80)+32).toFixed(2);
+            var tmpS = response.list[((i + 1)*8)-1].main.temp;
+        $("#forHum" +i ).html(humidity + '%');
+        $("#forTemp" +i ).html(fHeight + '&#8457');
+        $("#forImage" +i ).html(`<img src = "${imgUrl}">`);
+        $("#forDate" +i ).html(cDate); 
+      }
+    });
+
+  }
+
+
 
 function toDisplayWeather(e){
   e.preventDefault();
@@ -51,6 +86,44 @@ function look(s){
   }
   return 1; 
 }
+
+  
+  function UvData (lon, lat){
+    var uvUrl = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey
+  //   var lat = position.coords.latitude;
+  // var lon = position.coords.longitude;
+
+    $.ajax({
+      url: uvUrl,
+        method: "GET",
+      })
+        .then(function (response){
+        $(cUV).html(response.val); 
+  
+      }); 
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // update localStorage function need json.Stringify search history
 
 // searchBtn.addEventListener("click",function() {
