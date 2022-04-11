@@ -1,4 +1,3 @@
-
 // const = $('#') if i need to declare tings ye 
 // important stuffs ye 
 // cTemp = CURRENT shorthand tings ye
@@ -67,8 +66,8 @@ function getWeather (city, apiKey) {
 // var iconcode= response.list[((i+1)*8)-1].weather[0].icon;
 // var iconurl="https://openweathermap.org/img/wn/"+iconcode+".png";
 
-function foreCast (cityD){
-  var qForecastUrl = `api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`
+function foreCast (city){
+  var qForecastUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`;
   var over = false; 
     $.ajax ({
       url: qForecastUrl,
@@ -92,8 +91,8 @@ function foreCast (cityD){
 
 function toDisplayWeather(e){
   e.preventDefault();
-  if (inputL.value().trim()!==''){
-    city = inputL.value().trim();
+  if (inputL.val().trim()!==''){
+    city = inputL.val().trim();
   getWeather(city); 
   console.log(city)
   }
@@ -110,7 +109,7 @@ function look(s){
 
   
   function UvData (lon, lat){
-    var uvUrl = `api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`
+    var uvUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=minutely,hourly,alerts&appid=${apiKey}`;
   //   var lat = position.coords.latitude;
   // var lon = position.coords.longitude;
 
@@ -151,5 +150,3 @@ function lastCity(){
 
 
 $(window).on("load",lastCity);
-
-
