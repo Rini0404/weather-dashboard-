@@ -53,35 +53,36 @@ function getWeather (city) {
               }
         }
     })
+    function addToList(js){
+    var listA= $("<li>"+js.toUpperCase()+"</li>");
+    $(listA).setAttribute("class","list-group-item");
+    $(listA).setAttribute("data-value",js.toUpperCase());
+    $(".list-group").append(listA);
+  }
+  function foreCast (city){
+    var qForecastUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`;
+      $.ajax ({
+        url: qForecastUrl,
+        method: "GET", 
+
+      }).then(function (response){
+        for ( i = 0; i < 5 ; i++) { 
+          var cDate = new Date ((response.list =[((i + 1)*8 ) - 1 ] .dt)*1000).toLocaleDateString(); //add to ids
+          $("#forHum" +i ).html(humidity + '%');
+          $("#forTemp" +i ).html(fHeight + '&#8457');
+          // $("#forImage" +i ).html(`<img src = "${imgUrl}">`);
+          $("#forDate" +i ).html(cDate); 
+        }
+      });
+
+  }
+
+
 }
 
-  function addToList(js){
-    var listA= $("<li>"+js.toUpperCase()+"</li>");
-    $(listA).attr("class","list-group-item");
-    $(listA).attr("data-value",js.toUpperCase());
-    $(".list-group").append(listA);
-}
 
 // var iconcode= response.list[((i+1)*8)-1].weather[0].icon;
 // var iconurl="https://openweathermap.org/img/wn/"+iconcode+".png";
-
-function foreCast (city){
-  var qForecastUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`;
-    $.ajax ({
-      url: qForecastUrl,
-      method: "GET", 
-
-    }).then(function (response){
-      for ( i = 0; i < 5 ; i++) { 
-        var cDate = new Date ((response.list =[((i + 1)*8 ) - 1 ] .dt)*1000).toLocaleDateString(); //add to ids
-        $("#forHum" +i ).html(humidity + '%');
-        $("#forTemp" +i ).html(fHeight + '&#8457');
-        $("#forImage" +i ).html(`<img src = "${imgUrl}">`);
-        $("#forDate" +i ).html(cDate); 
-      }
-    });
-
-  }
 
 
 function toDisplayWeather(e){
