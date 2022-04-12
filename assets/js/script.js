@@ -17,7 +17,7 @@ const apiKey = "c742f6a434aba29ee3de171e2674ca24";
 // lets grab the users input! aka, searched city 
 function getWeather (city) {
   
-  var queryUrl =  `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`
+  var queryUrl =  `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=&appid=${apiKey}`
   fetch(queryUrl)
     .then(function (response) {
       console.log(response)
@@ -25,11 +25,17 @@ function getWeather (city) {
               response.json().then(function(data) {
                 if (data.length > 0) {
                   cityInfo(data[0].name, data[0].lat, data[0].lon);
+                  addCity(data[0].name, data[0].lat, data[0].lon);
                 }
               })
             }
       
     });
+  }
+  function addCity(cityName, long, latl) {
+    const cityListings = `${cityName}, ${latl}, ${long}`;
+    document.getElementById("cityList").innerHTML += cityListings
+    
   }
 const cityInfo = function(cityName, latl, long){
         const cities = JSON.parse(localStorage.getItem('cities')) ?? [];
