@@ -18,8 +18,7 @@ const apiKey = "c742f6a434aba29ee3de171e2674ca24";
 function getWeather (city) {
   
   var queryUrl =  `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=&appid=${apiKey}`
-  fetch(queryUrl)
-    .then(function (response) {
+  fetch(queryUrl).then(function (response) {
       console.log(response)
             if (response.ok){
               response.json().then(function(data) {
@@ -29,9 +28,9 @@ function getWeather (city) {
                 }
               })
             }
-      
     });
   }
+
   function addCity(cityName, long, latl) {
     const cityListings = `${cityName}, ${latl}, ${long}`;
     document.getElementById("cityList").innerHTML += cityListings
@@ -55,6 +54,22 @@ function submition (e) {
 
   }  
 }
+
+const generateCards = (name, lat, lon) => {
+  const oneCallAPI = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=minutely,hourly,alerts&appid=${apiKey}`;
+
+  fetch(oneCallAPI)
+      .then((response) => {
+          if (response.ok) {
+          response.json().then((data) => {
+              let current = data.current;
+              createPrimaryCard(name, currentDay, current.weather[0].icon, current.temp, current.wind_speed, current.humidity, current.uvi);
+              chooseUVColor(current.uvi);
+              generateDeck(data.daily);
+          });
+        }
+      });
+    }
 
 
 $('cityF').on('submit',submition);
